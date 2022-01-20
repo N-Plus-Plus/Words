@@ -1,0 +1,186 @@
+:root{
+    --background: #111;
+    --blank: #999;
+    --locked: #444;
+    --badKey: #222;
+    --right: #279277;
+    --wrong: #8067B7;
+    --width: 40vw;
+}
+body{
+    background-color: var(--background);
+    margin: 0;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #fffC;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    user-select: none;
+}
+*,*::before{
+    box-sizing: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.topBar,.mainPanel,.keyBoard{
+    margin: auto;
+}
+
+.topBar{
+    height: 10vh;
+    width: var( --width );
+}
+
+.mainPanel{
+    height: 70vh;
+    width: var( --width );
+}
+
+.keyBoard{
+    height: 20vh;
+    width: var( --width );
+}
+
+.keyboardRow{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.key{
+    height: 5vh;
+    width: 3.5vh;
+    background-color: #666;
+    border-radius: 0.5vh;
+    margin: 0.25vh;
+    font-size: 1.75vh;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.doubleKey{
+    width: 5.5vh;
+    font-size: 2vh;
+}
+
+.key,.mainPanel,.guessRow,.cell,.feedback,.modal,.modalBox,.button,.statsLeft,.statNum,.outcome{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainPanel{
+    flex-direction: column;
+}
+.guessRow{
+    flex-direction: row;
+}
+.cell{
+    margin: 0.5vh;
+    width: 7vh;
+    height: 7vh;
+    font-size: 4vh;
+    transition: all 200ms ease-out;
+}
+.bounce{
+    font-size: 4.5vh;
+}
+.blank{ background-color: #999; }
+.right{ background-color: var( --right ); }
+.wrong{ background-color: var( --wrong ); }
+.locked{ background-color: var( --locked ); }
+.badKey{ background-color: var( --badKey ); }
+
+.feedback{
+    width: 100%;
+    height: 4em;
+    opacity: 1;
+    transition: all ease-out 2s;
+    font-size: 4.5vh;
+}
+.fade{ opacity: 0; }
+
+.modal{
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    position: absolute;
+    background-color: #111b;
+}
+.modalBox{
+    width: 40vh;
+    height: 65vh;
+    background-color: #222;
+    flex-direction: column;
+    position: relative;
+    font-size: 4vh;
+    padding: 3vh 2vh 4vh 2vh;
+    justify-content: center;
+}
+
+.modal.unshown,.modalBox.unshown{
+    display: none;
+}
+
+.img{
+    width: 2vh;
+    height: 2vh;
+}
+.close{
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
+    cursor: pointer;
+    background-image: url(./close.png);
+}
+
+.button{
+    width: 20vh;
+    height: 4vh;
+    font-size: 2vh;
+    background-color: var(--right);
+    cursor: pointer;
+}
+
+#share{
+    width: 20vh;
+    height: 20vh;
+    margin: 2.5vh;
+}
+.stats{
+    width: 100%;
+    height: 20vh;
+    margin: 2.5vh 0;
+    position: relative;
+    font-size: 1vh;
+}
+
+.statsRow{
+    width: 100%;
+    height: 12.5%;
+    display: flex;
+}
+.statsLeft{
+    width: 20%;
+    height: 100%;
+    justify-content: right;
+    padding-right: 1vh;
+}
+.statNum,.statBar{
+    width: 80%;
+    height: 100%;
+    justify-content: start;
+}
+.barFill{
+    height: 80%;
+    background: linear-gradient(0deg, rgba(17,17,17,0) 0%, rgba(255,255,255,1) 50%, rgba(17,17,17,0) 100%);
+    border-radius: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.outcome{
+    text-align: center;
+}
