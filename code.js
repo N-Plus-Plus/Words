@@ -41,6 +41,7 @@ function newGame(){
     game.over = false;
     game.success = null;    
     buildMain();
+    updateKeyboard();
 }
 
 function pickWord(){
@@ -85,10 +86,12 @@ function buildMain(){
 function pressed( e ){
     if( game.over ){}
     else if( e.keyCode == 8 ){
-        let cell = document.querySelector(`#mainPanel`).children[game.currentRow].children[game.board[`r${game.currentRow}`].input.length-1];
-        cell.innerHTML = ``;
-        cell.classList.add(`bounce`);
-        game.board[`r${game.currentRow}`].input.pop();
+        if( game.board[`r${game.currentRow}`].input.length !== 0 ){
+            let cell = document.querySelector(`#mainPanel`).children[game.currentRow].children[game.board[`r${game.currentRow}`].input.length-1];
+            cell.innerHTML = ``;
+            cell.classList.add(`bounce`);
+            game.board[`r${game.currentRow}`].input.pop();
+        }
     }
     else if( e.key == `Enter` ){ submitGuess(); }
     else if( (/[a-zA-Z]/).test( e.key ) && e.key.length == 1 ){
@@ -106,7 +109,7 @@ function clicked( e ){
         else if( q == `ENTER` ){ submitGuess(); }
         else{ type( q ); }
     }
-    if( e.target.classList.contains(`close`) || e.target.classList.contains(`modal`) ){ toggleModal(); }
+    if( e.target.classList.contains(`close`) || e.target.classList.contains(`modal`) ){ newGame(); toggleModal(); }
     else if( e.target.classList.contains(`button`) ){ newGame(); toggleModal(); }
 }
 function type( q ){
@@ -228,6 +231,8 @@ function toggleModal( success ){
     else{
         o.innerHTML = `You'll get the next one for sure!`;
     }
+    let w = document.querySelector(`.answer`);
+    w.innerHTML = `The word was ${game.word}`;
 }
 
 var col = [ `#279277`, `#A0D468`, `#E8CE4D`,`#FC6E51`,`#EC87C0`,`#D8334A`]
@@ -269,12 +274,12 @@ function generateStats(){
     target.appendChild( e1 );
     let e2 = document.createElement(`div`);
     e2.classList = `statsRow`;
-    e2.innerHTML = `<div class="statsLeft">Losses:</div><div class="statBar"><div class="barFill" style="width: ${ stats.lost / watermark * 100 }%;"></div></div>`
+    e2.innerHTML = `<div class="statsLeft">Losses:</div><div class="statsRight">${stats.lost}</div><div class="statBar"><div class="barFill" style="width: ${ stats.lost / watermark * 100 }%;"></div></div>`
     target.appendChild( e2 );
     for( let i = 0; i < 6; i++ ){
         let e = document.createElement(`div`);
         e.classList = `statsRow`;
-        e.innerHTML = `<div class="statsLeft">Turn ${i + 1}:</div><div class="statBar"><div class="barFill" style="width: ${ stats.won[i] / watermark * 100 }%;"></div></div>`;
+        e.innerHTML = `<div class="statsLeft">Turn ${i + 1}:</div><div class="statsRight">${stats.won[i]}</div><div class="statBar"><div class="barFill" style="width: ${ stats.won[i] / watermark * 100 }%;"></div></div>`;
         target.appendChild( e );
     }
 }
