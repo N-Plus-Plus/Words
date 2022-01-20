@@ -21,14 +21,13 @@ let stats = {
 function onLoad(){
     loadGame();
     newGame();
-    buildKeyboard();
 }
 
 function newGame(){
     pickWord();
     for( y in keys ){
         for( x in keys[y] ){
-            if( game.keys[keys[y][x].toUpperCase()] == undefined && keys[y][x] !== `enter` && keys[y][x] !== `backspace`){
+            if( keys[y][x] !== `enter` && keys[y][x] !== `backspace`){
                 game.keys[keys[y][x].toUpperCase()] = {
                     guessed: false
                     , inWord: game.word.indexOf( keys[y][x].toUpperCase() ) != -1
@@ -40,8 +39,8 @@ function newGame(){
     game.currentRow = 0;
     game.over = false;
     game.success = null;    
-    buildMain();
-    updateKeyboard();
+    buildMain();    
+    buildKeyboard();
 }
 
 function pickWord(){
@@ -51,6 +50,7 @@ function pickWord(){
 
 function buildKeyboard(){
     let target = document.getElementById(`keyboard`);
+    target.innerHTML = ``;
     for( y in keys ){
         let row = document.createElement(`div`);
         row.classList = `keyboardRow`;
@@ -156,7 +156,21 @@ function progressRow(){
 
 function testLetter( q, i ){
     if( game.word[i] == q ){ return `right`; }
-    else if( game.word.indexOf( q ) != -1 ){ return `wrong`; }
+    else if( game.word.indexOf( q ) != -1 ){
+        // if they've all been guessed already, locked
+        if( game.word.split(q).length - 1 > 1 ){
+            let count = game.word.split(q).length - 1;
+            let acccount = 0;
+            for( let n = 0; n < 5; n++ ){
+                if( n == i ){}
+                else if( game.board[`r${game.currentRow}`].input[n] == q && game.word[n] == q ){ acccount++; }
+            }
+            if( count == acccount ){ return `locked` }
+            else{ return `wrong` }
+        }
+        // otherwsie
+        else{ return `wrong`; }
+    }
     else{ return `locked` }
 }
 
