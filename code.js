@@ -158,16 +158,13 @@ function testLetter( q, i ){
     if( game.word[i] == q ){ return `right`; }
     else if( game.word.indexOf( q ) != -1 ){
         // if they've all been guessed already, locked
-        if( game.word.split(q).length - 1 > 1 ){
-            let count = game.word.split(q).length - 1;
-            let acccount = 0;
-            for( let n = 0; n < 5; n++ ){
-                if( n == i ){}
-                else if( game.board[`r${game.currentRow}`].input[n] == q && game.word[n] == q ){ acccount++; }
-            }
-            if( count == acccount ){ return `locked` }
-            else{ return `wrong` }
+        let count = game.word.split(q).length - 1;
+        let acccount = 0;
+        for( let n = 0; n < 5; n++ ){
+            if( n == i ){}
+            else if( game.board[`r${game.currentRow}`].input[n] == q && game.word[n] == q ){ acccount++; }
         }
+        if( count == acccount ){ return `locked` }
         // otherwsie
         else{ return `wrong`; }
     }
