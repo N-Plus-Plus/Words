@@ -357,4 +357,5 @@ function loadGame(){
             }
         }
     }
+    if( stats.diff5.guesses > 0 ){ toggleModal(); }
 }
