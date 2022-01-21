@@ -15,7 +15,7 @@ let game = {
 };
 let stats = {
     diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
-    , diff5: { guesses: 0, lost: 0, won: [0,0,0,0,0,0], notWord: 0 }
+    , diff5: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
     , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0], notWord: 0 }
 }
 
@@ -28,7 +28,7 @@ let messages = {
 }
 
 function onLoad(){
-    document.title = `O \u205f​​​\u205f​​​R \u205f​​​\u205f​​​D \u205f​​​\u205f​​​S`
+    document.title = `O \u205f​​​\u205f​​​R \u205f​​​\u205f​​​D \u205f​​​\u205f​​​S`;
     loadGame();
     newGame();
 }
@@ -61,15 +61,17 @@ function pickWord(){
 function buildKeyboard(){
     let target = document.getElementById(`keyboard`);
     target.innerHTML = ``;
+    let mobile = ``;
+    if( document.body.clientHeight > document.body.clientWidth ){ mobile = `M`; }
     for( y in keys ){
         let row = document.createElement(`div`);
         row.classList = `keyboardRow`;
         for( x in keys[y] ){
             let k = document.createElement(`div`);
-            k.classList = `key`
+            k.classList = `${mobile}key`
             k.innerHTML = keys[y][x].toUpperCase();
             k.setAttribute( `key`, keys[y][x].toUpperCase() );
-            if( keys[y][x] == `enter` || keys[y][x] == `backspace` ){ k.classList.add( `doubleKey`); }
+            if( keys[y][x] == `enter` || keys[y][x] == `backspace` ){ k.classList.add( `${mobile}doubleKey`); }
             if( keys[y][x] == `enter` ){ k.innerHTML = `↵`; }
             if( keys[y][x] == `backspace` ){ k.innerHTML = `⌫`; }
             row.appendChild( k );
@@ -394,5 +396,4 @@ function loadGame(){
         }
     }
     if( stats.diff5.guesses > 0 ){ toggleModal(); }
-    if( stats.diff5.won[6] == undefined ){ stats.diff5.won[6] = 0; }
 }

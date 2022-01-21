@@ -15,7 +15,7 @@
 @media ( max-width: 1600 ) {
     :root{
         --width: 100vw;
-    }
+    }    
 }
 body{
     background-color: var(--background);
@@ -75,8 +75,22 @@ body{
     width: 5.5vh;
     font-size: 2vh;
 }
+.Mkey{
+    height: 13vw;
+    width: 9vw;
+    background-color: #666;
+    border-radius: 0.5vh;
+    margin: 0.5vw;
+    font-size: 1.75vh;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.MdoubleKey{
+    width: 13.5vw;
+    font-size: 2vh;
+}
 
-.key,.mainPanel,.guessRow,.cell,.feedback,.modal,.modalBox,.button,.statsLeft,.statsRight,.statNum,.outcome{
+.key,.Mkey,.mainPanel,.guessRow,.cell,.feedback,.modal,.modalBox,.button,.statsLeft,.statsRight,.statNum,.outcome{
     display: flex;
     align-items: center;
     justify-content: center;
