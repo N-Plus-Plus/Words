@@ -5,6 +5,7 @@
     --badKey: #222;
     --right: #279277;
     --wrong: #b39037;
+    --purp: #8067B7;
     --width: 40vw;
 }
 body{
@@ -143,6 +144,27 @@ body{
     background-color: var(--right);
     cursor: pointer;
 }
+.diffChange{    
+    width: 4vh;
+    height: 4vh;
+    border-radius: 2vh;
+    font-size: 2vh;
+    background-color: var(--purp);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.diffChange.dull{
+    background-color: var(--locked);
+    cursor: auto;
+}
+.modalBottom{
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
 #share{
     width: 20vh;
@@ -206,4 +228,9 @@ body{
 .sample{
     width: 5vh;
     height: 5vh;
+    font-size: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

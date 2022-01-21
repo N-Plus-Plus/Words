@@ -123,7 +123,15 @@ function clicked( e ){
         else{ type( q ); }
     }
     if( e.target.classList.contains(`close`) || e.target.classList.contains(`modal`) ){ newGame(); toggleModal(); }
-    else if( e.target.classList.contains(`button`) ){ newGame(); toggleModal(); }
+    else if( e.target.classList.contains(`button`) ){ toggleModal(); newGame(); }
+    else if( e.target.classList.contains(`diffChange`) ){
+        if( e.target.getAttribute(`data-diff`) == null ){}
+        else if( e.target.getAttribute(`data-diff`) !== `x` ){
+            game.diff = parseInt( e.target.getAttribute(`data-diff`) );
+            toggleModal();
+            newGame();
+        }
+    }
 }
 function type( q ){
     if( !game.over ){
@@ -246,6 +254,7 @@ function notWord(){
 }
 
 function toggleModal( success ){
+    adjustModalBottom();
     document.getElementById(`welcome`).classList.add(`unshown`);
     document.getElementById(`statPanel`).classList.remove(`unshown`);
     let m = document.querySelector(`.modal`);
@@ -259,6 +268,21 @@ function toggleModal( success ){
     }
     let w = document.querySelector(`.answer`);
     w.innerHTML = `The word was ${game.word}`;
+}
+
+function adjustModalBottom(){
+    let target = document.querySelector(`.modalBottom`);    
+    if( document.getElementById(`welcome`).classList.contains(`unshown`) ){
+        if( game.diff == 4 ){
+            target.innerHTML = `<div class="diffChange dull">X</div><div class="button">Start?</div><div class="diffChange" data-diff="5">5</div>`
+        }
+        else if( game.diff == 5 ){
+            target.innerHTML = `<div class="diffChange" data-diff="4">4</div><div class="button">Start?</div><div class="diffChange" data-diff="6">6</div>`
+        }
+        else if( game.diff == 6 ){
+            target.innerHTML = `<div class="diffChange" data-diff="5">5</div><div class="button">Start?</div><div class="diffChange dull">X</div>`
+        }
+    }
 }
 
 var col = [ `#279277`, `#A0D468`, `#E8CE4D`,`#FC6E51`,`#EC87C0`,`#D8334A`]
