@@ -347,4 +347,13 @@ function loadGame(){
     if( JSON.parse( localStorage.getItem( `stats` ) ) !== null ){
         stats = JSON.parse( localStorage.getItem( `stats` ) );
     };
+    if( stats.guesses !== undefined ){
+        let temp = JSON.parse( JSON.stringify( stats ) );
+        stats = {
+            diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0] }
+            , diff5: { guesses: temp.guess, lost: temp.lost, won: temp.won }
+            , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0]
+            }
+        }
+    }
 }
