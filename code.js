@@ -313,13 +313,13 @@ function adjustModalBottom(){
     let target = document.querySelector(`.modalBottom`);    
     if( document.getElementById(`welcome`).classList.contains(`unshown`) ){
         if( game.diff == 4 ){
-            target.innerHTML = `<div class="diffChange dull">X</div><div class="button">Start?</div><div class="diffChange" data-diff="5">5</div>`
+            target.innerHTML = `<div class="diffChange dull">X</div><div class="button">Again?</div><div class="diffChange" data-diff="5">5</div>`
         }
         else if( game.diff == 5 ){
-            target.innerHTML = `<div class="diffChange" data-diff="4">4</div><div class="button">Start?</div><div class="diffChange" data-diff="6">6</div>`
+            target.innerHTML = `<div class="diffChange" data-diff="4">4</div><div class="button">Again?</div><div class="diffChange" data-diff="6">6</div>`
         }
         else if( game.diff == 6 ){
-            target.innerHTML = `<div class="diffChange" data-diff="5">5</div><div class="button">Start?</div><div class="diffChange dull">X</div>`
+            target.innerHTML = `<div class="diffChange" data-diff="5">5</div><div class="button">Again?</div><div class="diffChange dull">X</div>`
         }
     }
 }
