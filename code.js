@@ -32,6 +32,7 @@ let stats = {
 }
 
 function onLoad(){
+    document.title = `O \u205f​​​\u205f​​​R \u205f​​​\u205f​​​D \u205f​​​\u205f​​​S`
     loadGame();
     newGame();
 }
