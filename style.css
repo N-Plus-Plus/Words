@@ -6,7 +6,16 @@
     --right: #279277;
     --wrong: #b39037;
     --purp: #8067B7;
-    --width: 40vw;
+}
+@media ( min-width: 1600 ) {
+    :root{
+        --width: 40vw;
+    }
+}
+@media ( max-width: 1600 ) {
+    :root{
+        --width: 100vw;
+    }
 }
 body{
     background-color: var(--background);

@@ -14,21 +14,9 @@ let game = {
     , diff: 5
 };
 let stats = {
-    diff4: {
-        guesses: 0
-        , lost: 0
-        , won: [0,0,0,0,0]
-    }
-    , diff5: {
-        guesses: 0
-        , lost: 0
-        , won: [0,0,0,0,0,0]
-    }
-    , diff6: {
-        guesses: 0
-        , lost: 0
-        , won: [0,0,0,0,0,0,0]
-    }
+    diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
+    , diff5: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
+    , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0], notWord: 0 }
 }
 
 let messages = {
