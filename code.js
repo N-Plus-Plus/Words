@@ -1,6 +1,10 @@
 document.addEventListener(`DOMContentLoaded`, function () { onLoad(); } );
 window.addEventListener("mousedown", function (e) { clicked( e, true ); } );
 window.addEventListener("keydown", function(e) { pressed( e ) } );
+window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  });
 
 
 let keys = [[`q`,`w`,`e`,`r`,`t`,`y`,`u`,`i`,`o`,`p`],[`a`,`s`,`d`,`f`,`g`,`h`,`j`,`k`,`l`],[`enter`,`z`,`x`,`c`,`v`,`b`,`n`,`m`,`backspace`]]
@@ -67,6 +71,8 @@ function buildKeyboard(){
     if( document.body.clientHeight > document.body.clientWidth ){
         mobile = `M`;
         target.classList.add(`mobile`);
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
     for( y in keys ){
         let row = document.createElement(`div`);
