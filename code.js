@@ -246,6 +246,8 @@ function notWord(){
 }
 
 function toggleModal( success ){
+    document.getElementById(`welcome`).classList.add(`unshown`);
+    document.getElementById(`statPanel`).classList.remove(`unshown`);
     let m = document.querySelector(`.modal`);
     m.classList.toggle(`unshown`);
     let o = document.querySelector(`.outcome`);

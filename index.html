@@ -12,7 +12,7 @@
 </head>
 <body class="flexy">
     <div class="modal">
-        <div class="modalBox">
+        <div class="modalBox unshown" id="statPanel">
             <div class="img close"></div>
             <div class="outcome"></div>
             <div class="answer"></div>
@@ -20,6 +20,19 @@
             <div class="stats" id="stats"></div>
             <div class="modalBottom">
                 <div class="button">Another round?</div>
+            </div>
+        </div>
+        <div class="modalBox" id="welcome">
+            <div class="img close"></div>
+            <div class="outcome">Welcome!</div>
+            <div class="welcome">Guess the word in as few guesses as you can.</div>
+            <div class="welcome">You can only use guess actual words.</div>
+            <div class="sample right"></div>
+            <div class="welcome">Green means you got the right letter in the right spot.</div>
+            <div class="sample wrong"></div>
+            <div class="welcome">Yellow means that letter belongs somewhere else.</div>
+            <div class="modalBottom">
+                <div class="button">Start?</div>
             </div>
         </div>
     </div>
