@@ -2,6 +2,7 @@ document.addEventListener(`DOMContentLoaded`, function () { onLoad(); } );
 window.addEventListener("mousedown", function (e) { clicked( e, true ); } );
 window.addEventListener("keydown", function(e) { pressed( e ) } );
 
+
 let keys = [[`q`,`w`,`e`,`r`,`t`,`y`,`u`,`i`,`o`,`p`],[`a`,`s`,`d`,`f`,`g`,`h`,`j`,`k`,`l`],[`enter`,`z`,`x`,`c`,`v`,`b`,`n`,`m`,`backspace`]]
 let game = {
     keys: {}
@@ -28,6 +29,14 @@ let stats = {
         , lost: 0
         , won: [0,0,0,0,0,0,0]
     }
+}
+
+let messages = {
+    great: [`Are you cheating?`,`Outstanding!`,`Amazing!`,`Ermagerd!`,`Fantastic!`,`So good!`,`Great guess!`,`Best one yet!`,`Champion!`]
+    , good: [`Pretty good!`,`Hey! Nice one!`,`Strong guess!`,`Good job!`,`Ooh, nice!`,`That went well!`,`You're good at this!`,`Very nice!`,`Oh yeah!`]
+    , okay: [`Meh.`,`Not bad...`,`That was alright.`,`So-so.`,`I tried that too.`,`Not the worst.`,`You'll get it.`,`Different strat?`,`Keep at it.`]
+    , bad: [`Not even close`,`Nope, sorry`,`Bup-bowm`,`Don't feel bad`,'Uh-uh',`Need a break?`,'You can do better.',`Afraid not...`,`Not ideal...`]
+    , terrible: [`Were you trying?`,`Well that sucks.`,`Not even one!`,`Z-z-z-ero!`,`Stike one!`,`I believe in you!`,`This one's hard.`,`All up from here.`,`I feel bad too.`]
 }
 
 function onLoad(){
@@ -106,7 +115,10 @@ function pressed( e ){
             game.board[`r${game.currentRow}`].input.pop();
         }
     }
-    else if( e.key == `Enter` ){ submitGuess(); }
+    else if( e.key == `Enter` ){
+        if( document.querySelector(`.modal`).classList.contains(`unshown`) ){ submitGuess(); }
+        else{ toggleModal(); newGame(); }        
+    }
     else if( (/[a-zA-Z]/).test( e.key ) && e.key.length == 1 ){
         type( e.key.toUpperCase() );
     }
@@ -214,6 +226,7 @@ function submitGuess(){
             if( whole == game.word ){
                 game.success = true;
                 gameOver( game.currentRow );
+                guessFeedback( `You got it!` );
             }
             else{ 
                 for( let i = 0; i < game.diff; i++ ){
@@ -224,7 +237,12 @@ function submitGuess(){
                     game.success = false;
                     game.over = true;
                     gameOver(game.currentRow);
+                    guessFeedback( `Dang it!` );
                 }
+            }
+            if( Math.random() < 0.5 ){
+                let q = generateFeedback()
+                guessFeedback( q );
             }
             progressRow();
             updateKeyboard();
@@ -241,6 +259,7 @@ function gameOver( r ){
 }
 
 function notWord(){
+    stats[`diff${game.diff}`].notWord++;
     let w = document.querySelectorAll(`.feedback`);
     for( let i = 0; i < w.length; i++ ){
         w[i].parentElement.removeChild(w[i]);
@@ -249,6 +268,36 @@ function notWord(){
     let n = document.createElement(`div`);
     n.classList = `feedback`;
     n.innerHTML = `That's not a word!`;
+    target.appendChild( n );
+    setTimeout(() => { n.classList.add(`fade`); }, 0 );
+}
+
+function generateFeedback(){
+    let eval = 0;
+    for( let i = 0; i < game.board[`r${game.currentRow}`].input.length; i++ ){
+        let result = testLetter( game.board[`r${game.currentRow}`].input[i], i, game.currentRow );
+        if( result == `right` ){ eval += 10; }
+        else if( result == `wrong` ){ eval += 3; }
+    }
+    let type = ``;
+    if( eval == 0 ){ type = `terrible`; }
+    else if( eval < 10 ){ type = `bad`; }
+    else if( eval < 20 ){ type = `okay`; }
+    else if( eval < 30 ){ type = `good`; }
+    else{ type = `great`; }
+    let nonce = Math.floor( Math.random() * messages[type].length );
+    return messages[type][nonce];
+}
+
+function guessFeedback( q ){    
+    let w = document.querySelectorAll(`.feedback`);
+    for( let i = 0; i < w.length; i++ ){
+        w[i].parentElement.removeChild(w[i]);
+    }
+    let target = document.querySelector(`.topBar`);
+    let n = document.createElement(`div`);
+    n.classList = `feedback`;
+    n.innerHTML = q;
     target.appendChild( n );
     setTimeout(() => { n.classList.add(`fade`); }, 0 );
 }
@@ -350,9 +399,9 @@ function loadGame(){
     if( stats.guesses !== undefined ){
         let temp = JSON.parse( JSON.stringify( stats ) );
         stats = {
-            diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0] }
-            , diff5: { guesses: temp.guess, lost: temp.lost, won: temp.won }
-            , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0]
+            diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
+            , diff5: { guesses: temp.guess, lost: temp.lost, won: temp.won, notWord: 0 }
+            , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0], notWord: 0
             }
         }
     }

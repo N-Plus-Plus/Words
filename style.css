@@ -28,6 +28,7 @@ body{
 
 .topBar,.mainPanel,.keyBoard{
     margin: auto;
+    z-index: 20;
 }
 
 .topBar{
@@ -99,6 +100,7 @@ body{
     height: 4em;
     opacity: 1;
     transition: all ease-out 2s;
+    transition-delay: 1s;
     font-size: 4.5vh;
 }
 .fade{ opacity: 0; }
