@@ -25,6 +25,8 @@ let messages = {
     , okay: [`Meh.`,`Not bad...`,`That was alright.`,`So-so.`,`I tried that too.`,`Not the worst.`,`You'll get it.`,`Different strat?`,`Keep at it.`]
     , bad: [`Not even close`,`Nope, sorry`,`Bup-bowm`,`Don't feel bad`,'Uh-uh',`Need a break?`,'You can do better.',`Afraid not...`,`Not ideal...`]
     , terrible: [`Were you trying?`,`Well that sucks.`,`Not even one!`,`Z-z-z-ero!`,`Stike one!`,`I believe in you!`,`This one's hard.`,`All up from here.`,`I feel bad too.`]
+    , stepUp: []
+    , stepDown: []
 }
 
 function onLoad(){
@@ -48,7 +50,7 @@ function newGame(){
     for( let i = 0; i <= game.diff + 1; i++ ){ game.board[`r${i}`] = { input: [], locked: false } }
     game.currentRow = 0;
     game.over = false;
-    game.success = null;    
+    game.success = null;
     buildMain();
     buildKeyboard();
 }
@@ -62,7 +64,10 @@ function buildKeyboard(){
     let target = document.getElementById(`keyboard`);
     target.innerHTML = ``;
     let mobile = ``;
-    if( document.body.clientHeight > document.body.clientWidth ){ mobile = `M`; }
+    if( document.body.clientHeight > document.body.clientWidth ){
+        mobile = `M`;
+        target.classList.add(`mobile`);
+    }
     for( y in keys ){
         let row = document.createElement(`div`);
         row.classList = `keyboardRow`;
@@ -213,6 +218,10 @@ function submitGuess(){
             notWord();
         }
         else {
+            if( Math.random() < 0.5 ){
+                let q = generateFeedback()
+                guessFeedback( q );
+            }
             if( whole == game.word ){
                 game.success = true;
                 gameOver( game.currentRow );
@@ -229,10 +238,6 @@ function submitGuess(){
                     gameOver(game.currentRow);
                     guessFeedback( `Dang it!` );
                 }
-            }
-            if( Math.random() < 0.5 ){
-                let q = generateFeedback()
-                guessFeedback( q );
             }
             progressRow();
             updateKeyboard();

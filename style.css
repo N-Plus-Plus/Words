@@ -42,6 +42,30 @@ body{
     width: var( --width );
 }
 
+.keyboard.mobile{
+    z-index: 1;
+    width: var( --width );
+    position: absolute;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    z-index: 2;
+}
+.keyBoard{
+    z-index: 1;
+    width: var( --width );
+    height: 30vh;
+    margin: auto;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .keyboardRow{
     width: 100%;
     display: flex;
@@ -250,32 +274,9 @@ body{
     :root{
         --width: 100vw;
     }
-    .keyBoard{
-        z-index: 1;
-        width: var( --width );
-        position: absolute;
-        flex-direction: column;
-        align-items: flex-end;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        z-index: 2;
-    } 
 }
 @media ( min-width: 1001 ) {
     :root{
         --width: 40vw;
-    }    
-    .keyBoard{
-        z-index: 1;
-        width: var( --width );
-        position: absolute;
-        bottom: 0;
-        left: 37vw;
-        height: 20vh;
-        margin: auto;
-        z-index: 2;
     }
-    
-    
 }
