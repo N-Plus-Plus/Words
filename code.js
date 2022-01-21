@@ -15,7 +15,7 @@ let game = {
 };
 let stats = {
     diff4: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
-    , diff5: { guesses: 0, lost: 0, won: [0,0,0,0,0], notWord: 0 }
+    , diff5: { guesses: 0, lost: 0, won: [0,0,0,0,0,0], notWord: 0 }
     , diff6: {guesses: 0, lost: 0, won: [0,0,0,0,0,0,0], notWord: 0 }
 }
 
@@ -396,4 +396,8 @@ function loadGame(){
         }
     }
     if( stats.diff5.guesses > 0 ){ toggleModal(); }
+    for( let i = 0; i < 6; i++ ){
+        if( stats.diff5.won[i] == undefined ){ stats.diff5.won[i] = 0; }
+        if( isNaN( stats.diff5.won[i] ) ){ stats.diff5.won[i] = 0; }
+    }
 }
