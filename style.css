@@ -1,11 +1,14 @@
 :root{
     --background: #111;
     --blank: #999;
+    --key: #666;
     --locked: #444;
     --badKey: #222;
     --right: #279277;
     --wrong: #b39037;
     --purp: #8067B7;
+    --notWord: #D8334A;
+    --color: #fffC
 }
 
 
@@ -13,11 +16,11 @@ body{
     background-color: var(--background);
     margin: 0;
     font-family: 'Lexend Deca', sans-serif;
-    color: #fffC;
+    color: var(--color);
     overflow: auto;
     position: absolute;
     user-select: none;
-    
+    -webkit-tap-highlight-color: #fff0;
     width: 100%;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
@@ -80,7 +83,7 @@ body{
 .key{
     height: 5vh;
     width: 3.5vh;
-    background-color: #666;
+    background-color: var( --key );
     border-radius: 0.5vh;
     margin: 0.25vh;
     font-size: 1.75vh;
@@ -94,18 +97,18 @@ body{
 .Mkey{
     height: 13vw;
     width: 9vw;
-    background-color: #666;
+    background-color: var( --key );
     border-radius: 0.5vh;
     margin: 0.5vw;
     font-size: 1.75vh;
     transition: all 0.5s;
     cursor: pointer;
+    -webkit-tap-highlight-color: #fff2;
 }
 .MdoubleKey{
     width: 13.5vw;
     font-size: 2vh;
 }
-
 .key,.Mkey,.mainPanel,.guessRow,.cell,.feedback,.modal,.modalBox,.button,.statsLeft,.statsRight,.statNum,.outcome{
     display: flex;
     align-items: center;
@@ -136,11 +139,15 @@ body{
 
 .feedback{
     width: 100%;
-    height: 4em;
+    height: 100%;
     opacity: 1;
     transition: all ease-out 2s;
     transition-delay: 1s;
     font-size: 4.5vh;
+    align-items: flex-end;
+}
+.feedback.notWord{
+    color: var( --notWord );
 }
 .fade{ opacity: 0; }
 
@@ -275,6 +282,62 @@ body{
     text-align: center;
 }
 
+.settingBox{
+    height: 25%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.settingLabel{
+    font-size: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5%;
+}
+.setting{
+    font-size: 2.5vh;
+    width: 40%;
+    height: 25%;
+    background-color: var(--right);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+.setting.off{
+    background-color: var(--notWord);
+}
+
+.settings,.hint{
+    position: absolute;
+    top: 1vh;
+    width: 3vh;
+    height: 3vh;
+    z-index: 5;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.settings{
+    background-image: url(./settings.png);
+    right: 1vh;
+}
+.hint{
+    background-image: url(./hint.png);
+    left: 1vh;
+}
+.hint.spent{
+    pointer-events: none;
+    opacity: 0.25;
+}
+.hint.unshown{
+    display: none;
+}
+
 @media only screen and (max-width: 1000px) {
     :root{
         --width: 100vw;
@@ -284,4 +347,24 @@ body{
     :root{
         --width: 40vw;
     }
+}
+
+.blink{
+    animation: blink 1.5s linear;
+}
+@keyframes blink {
+    20% { background-color: var( --right ); }
+    40% { background-color: var( --key ); }
+    60% { background-color: var( --right ); }
+    80% { background-color: var( --key ); }
+    100% { background-color: var( --right ); }
+}
+
+.rightand{
+    background-color: var( --right );
+    border: dashed var( --color ) 0.1vh;
+}
+.wrongand{
+    background-color: var( --wrong );
+    border: dashed var( --color ) 0.1vh;
 }

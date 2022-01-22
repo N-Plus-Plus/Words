@@ -12,6 +12,8 @@
     <title>O  R  D  S</title>
 </head>
 <body class="flexy">
+    <div class="settings"></div>
+    <div class="hint unshown"></div>
     <div class="modal">
         <div class="modalBox unshown" id="statPanel">
             <div class="img close"></div>
@@ -34,6 +36,22 @@
             <div class="sample wrong">Z</div>
             <div class="welcome">That's pretty much it!</div>
             <div class="button">Start?</div>
+        </div>
+        <div class="modalBox unshown" id="settings">
+            <div class="img close"></div>
+            <div class="outcome">Settings</div>
+            <div class="settingBox">
+                <div class="settingLabel">Sounds</div>
+                <div class="setting off" data-setting="sounds">Turn On</div>
+            </div>
+            <div class="settingBox">
+                <div class="settingLabel">Hints</div>
+                <div class="setting off" data-setting="hints">Turn On</div>
+            </div>
+            <div class="settingBox">
+                <div class="settingLabel">Double Letter Assist</div>
+                <div class="setting off" data-setting="doubles">Turn On</div>
+            </div>            
         </div>
     </div>
     <section class="topBar"></section>
