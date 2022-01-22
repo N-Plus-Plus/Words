@@ -28,6 +28,7 @@ let settings = {
     , hints: false
     , doubles: false
 }
+var newGameOnClose = false;
 
 let messages = {
     great: [`Did you cheat?`,`Outstanding!`,`Amazing!`,`Ermagerd!`,`Fantastic!`,`So good!`,`Great guess!`,`Best one yet!`,`Champion!`]
@@ -51,7 +52,7 @@ function newGame(){
     let arr = game.word.split(``);
     for( y in keys ){
         for( x in keys[y] ){
-            if( keys[y][x] !== `enter` && keys[y][x] !== `backspace`){        
+            if( keys[y][x] !== `enter` && keys[y][x] !== `backspace`){
                 let q = keys[y][x].toUpperCase();        
                 game.keys[q] = {
                     guessed: false
@@ -169,7 +170,16 @@ function clicked( e ){
     }
     else if( e.target.classList.contains(`setting`) ){
         let s = e.target.getAttribute(`data-setting`);
-        settings[s] = !settings[s];
+        if( s == `difficulty` ){
+            let d = [`Four in Five`,`Five in Six`,`Six in Seven`,`Four in Five`];
+            let dd = [ 4, 5 ,6, 4 ];
+            let ind = dd.indexOf( game.diff );
+            document.querySelector(`[data-setting="difficulty"]`).innerHTML = d[ind+1];
+            game.diff = dd[ind+1];
+            settings.difficulty = dd[ind+1];
+            newGameOnClose = true;
+        }
+        else{ settings[s] = !settings[s]; }
         saveState();
         updateSettingButtons();
         updateHintState();
@@ -377,12 +387,23 @@ function toggleSettings(){
     let m = document.querySelector(`.modal`);
     m.classList.toggle(`unshown`);
     updateSettingButtons();
+    if( newGameOnClose ){
+        newGameOnClose = false;
+        saveState();
+        newGame();
+    }
 }
 
 function updateSettingButtons(){
     for( s in settings ){
         let target = document.querySelector(`[data-setting="${s}"]`);
-        if( settings[s] ){
+        if( s == `difficulty` ){
+            let d = [`Four in Five`,`Five in Six`,`Six in Seven`,`Four in Five`];
+            let dd = [ 4, 5 ,6, 4 ];            
+            let ind = dd.indexOf( game.diff );
+            target.innerHTML = d[ind];
+        }
+        else if( settings[s] ){
             target.classList.remove(`off`);
             target.innerHTML = `Turn Off`;
         }
@@ -432,15 +453,7 @@ function blinkKey( k ){
 function adjustModalBottom(){
     let target = document.querySelector(`.modalBottom`);    
     if( document.getElementById(`welcome`).classList.contains(`unshown`) ){
-        if( game.diff == 4 ){
-            target.innerHTML = `<div class="diffChange dull">X</div><div class="button">Again?</div><div class="diffChange" data-diff="5">5</div>`
-        }
-        else if( game.diff == 5 ){
-            target.innerHTML = `<div class="diffChange" data-diff="4">4</div><div class="button">Again?</div><div class="diffChange" data-diff="6">6</div>`
-        }
-        else if( game.diff == 6 ){
-            target.innerHTML = `<div class="diffChange" data-diff="5">5</div><div class="button">Again?</div><div class="diffChange dull">X</div>`
-        }
+        target.innerHTML = `<div class="button">Again?</div>`;
     }
 }
 
@@ -505,9 +518,6 @@ function loadGame(){
     if( JSON.parse( localStorage.getItem( `stats` ) ) !== null ){
         stats = JSON.parse( localStorage.getItem( `stats` ) );
     };
-    if( JSON.parse( localStorage.getItem( `settings` ) ) !== null ){
-        settings = JSON.parse( localStorage.getItem( `settings` ) );
-    };
     if( stats.guesses !== undefined ){
         let temp = JSON.parse( JSON.stringify( stats ) );
         stats = {
@@ -522,4 +532,9 @@ function loadGame(){
         if( stats.diff5.won[i] == undefined ){ stats.diff5.won[i] = 0; }
         if( isNaN( stats.diff5.won[i] ) ){ stats.diff5.won[i] = 0; }
     }
+    if( JSON.parse( localStorage.getItem( `settings` ) ) !== null ){
+        settings = JSON.parse( localStorage.getItem( `settings` ) );
+    };
+    if( settings.difficulty == undefined || settings.difficulty == false ){ settings.difficulty = 5; }
+    else( game.diff = settings.difficulty );
 }
