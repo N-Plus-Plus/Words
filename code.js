@@ -384,11 +384,11 @@ function updateSettingButtons(){
         let target = document.querySelector(`[data-setting="${s}"]`);
         if( settings[s] ){
             target.classList.remove(`off`);
-            target.innerHTML = `Turn On`;
+            target.innerHTML = `Turn Off`;
         }
         else{
             target.classList.add(`off`);
-            target.innerHTML = `Turn Off`;
+            target.innerHTML = `Turn On`;
         }
     }
 }
