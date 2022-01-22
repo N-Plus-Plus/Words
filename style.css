@@ -100,14 +100,14 @@ body{
     background-color: var( --key );
     border-radius: 0.5vh;
     margin: 0.5vw;
-    font-size: 1.75vh;
+    font-size: 2.25vh;
     transition: all 0.5s;
     cursor: pointer;
     -webkit-tap-highlight-color: #fff2;
 }
 .MdoubleKey{
     width: 13.5vw;
-    font-size: 2vh;
+    font-size: 2.5vh;
 }
 .key,.Mkey,.mainPanel,.guessRow,.cell,.feedback,.modal,.modalBox,.button,.statsLeft,.statsRight,.statNum,.outcome{
     display: flex;
