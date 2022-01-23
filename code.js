@@ -234,8 +234,14 @@ function progressRow(){
 function testLetter( q, i, r ){
     let count = game.word.split(q).length - 1;
     let account = 0;
+    let rightCount = 0
     for( let n = 0; n < game.diff; n++ ){
-        if( game.board[`r${r}`].input[n] == q ){ account++; }
+        if( game.board[`r${r}`].input[n] == q ){
+            account++;
+            if( game.word[n] == q ){
+                rightCount++;
+            }
+        }
     }
     if( game.word[i] == q ){
         if( settings.doubles ){
@@ -249,9 +255,10 @@ function testLetter( q, i, r ){
             if( count <= account ){ return `wrong`; }
             else{ return `wrongand`;}
         }
+        else if( count == rightCount ){ return `locked`; }
         else{ return `wrong`; }
     }
-    else{ return `locked` }
+    else{ return `locked`; }
 }
 
 function updateKeyboard(){
