@@ -28,7 +28,6 @@ let settings = {
     , hints: false
     , doubles: false
 }
-var newGameOnClose = false;
 
 let messages = {
     great: [`Did you cheat?`,`Outstanding!`,`Amazing!`,`Ermagerd!`,`Fantastic!`,`So good!`,`Great guess!`,`Best one yet!`,`Champion!`]
@@ -175,7 +174,6 @@ function clicked( e ){
             let dd = [ 4, 5 ,6, 4 ];
             let ind = dd.indexOf( game.diff );
             document.querySelector(`[data-setting="difficulty"]`).innerHTML = d[ind+1];
-            game.diff = dd[ind+1];
             settings.difficulty = dd[ind+1];
             newGameOnClose = true;
         }
@@ -394,8 +392,8 @@ function toggleSettings(){
     let m = document.querySelector(`.modal`);
     m.classList.toggle(`unshown`);
     updateSettingButtons();
-    if( newGameOnClose ){
-        newGameOnClose = false;
+    if( game.diff !== settings.difficulty ){
+        game.diff = settings.difficulty;
         saveState();
         newGame();
     }
@@ -404,7 +402,8 @@ function toggleSettings(){
 function updateSettingButtons(){
     for( s in settings ){
         let target = document.querySelector(`[data-setting="${s}"]`);
-        if( s == `difficulty` ){
+        if( s == `round` || s == `changing` || s == `hiScore` ){}
+        else if( s == `difficulty` ){
             let d = [`Four in Five`,`Five in Six`,`Six in Seven`,`Four in Five`];
             let dd = [ 4, 5 ,6, 4 ];            
             let ind = dd.indexOf( game.diff );
@@ -544,4 +543,7 @@ function loadGame(){
     };
     if( settings.difficulty == undefined || settings.difficulty == false ){ settings.difficulty = 5; }
     else( game.diff = settings.difficulty );
+    if( settings.sounds == undefined ){ settings.sounds = false; }
+    if( settings.hints == undefined ){ settings.hints = false; }
+    if( settings.doubles == undefined ){ settings.doubles = false; }
 }
